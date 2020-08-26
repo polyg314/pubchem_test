@@ -122,14 +122,15 @@ def load_annotations(data_folder):
                         compound_data['iupac'][iupac_key] = elem.text
                 iupac = False
             elif(molecular_formula):
-                compound_data["molecular_formula"] = elem.text
+                if(elem.text):
+                    compound_data["molecular_formula"] = elem.text
                 molecular_formula = False
             elif(smiles):
                 if(smiles_key):
                     if(elem.text):
                         compound_data['smiles'][smiles_key] = elem.text
                 smiles = False
-        
+    
         elif((elem.tag == "PC-InfoData_value_ival") & (event == 'start')):
             if(hydrogen_bond_acceptor):
                 if(elem.text):
