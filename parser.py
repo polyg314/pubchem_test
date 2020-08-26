@@ -40,30 +40,32 @@ def load_annotations(data_folder):
             # print(current_compound)
             if(current_compound["_id"]):
                 yield(current_compound)
-            elem.clear()
+                    elem.clear()
         elif((elem.tag == "PC-Compound_charge") & (event == 'start')):
-            compound_data["formal_charge"] = elem.text
+            if(elem.text):
+                compound_data["formal_charge"] = elem.text
         elif((elem.tag == "PC-Count") & (event == 'start')):
             PC_count = True
         elif((elem.tag == "PC-Count") & (event == 'end')):
             PC_count = False
         elif(PC_count):
-            if((elem.tag == "PC-Count_heavy-atom") & (event == 'start')):
-                compound_data["heavy_atom_count"] = elem.text
-            elif((elem.tag == "PC-Count_atom-chiral-def") & (event == 'start')):
-                compound_data["defined_chiral_atom_count"] = elem.text
-            elif((elem.tag == "PC-Count_bond-chiral-def") & (event == 'start')):
-                compound_data["defined_chiral_bond_count"] = elem.text
-            elif((elem.tag == "PC-Count_atom-chiral-undef") & (event == 'start')):
-                compound_data["undefined_chiral_atom_count"] = elem.text
-            elif((elem.tag == "PC-Count_bond-chiral-undef") & (event == 'start')):
-                compound_data["undefined_chiral_bond_count"] = elem.text
-            elif((elem.tag == "PC-Count_isotope-atom") & (event == 'start')):
-                compound_data["isotope_atom_count"] = elem.text
-            elif((elem.tag == "PC-Count_covalent-unit") & (event == 'start')):
-                compound_data["covalent_unit_count"] = elem.text
-            elif((elem.tag == "PC-Count_tautomers") & (event == 'start')):
-                compound_data["tautomers_count"] = elem.text
+            if(elem.text):
+                if((elem.tag == "PC-Count_heavy-atom") & (event == 'start')):
+                    compound_data["heavy_atom_count"] = elem.text
+                elif((elem.tag == "PC-Count_atom-chiral-def") & (event == 'start')):
+                    compound_data["defined_chiral_atom_count"] = elem.text
+                elif((elem.tag == "PC-Count_bond-chiral-def") & (event == 'start')):
+                    compound_data["defined_chiral_bond_count"] = elem.text
+                elif((elem.tag == "PC-Count_atom-chiral-undef") & (event == 'start')):
+                    compound_data["undefined_chiral_atom_count"] = elem.text
+                elif((elem.tag == "PC-Count_bond-chiral-undef") & (event == 'start')):
+                    compound_data["undefined_chiral_bond_count"] = elem.text
+                elif((elem.tag == "PC-Count_isotope-atom") & (event == 'start')):
+                    compound_data["isotope_atom_count"] = elem.text
+                elif((elem.tag == "PC-Count_covalent-unit") & (event == 'start')):
+                    compound_data["covalent_unit_count"] = elem.text
+                elif((elem.tag == "PC-Count_tautomers") & (event == 'start')):
+                    compound_data["tautomers_count"] = elem.text
         elif((elem.tag == "PC-Count") & (event == 'start')):
             PC_count = True
         elif((elem.tag == "PC-Count") & (event == 'end')):
@@ -107,48 +109,63 @@ def load_annotations(data_folder):
 
         elif((elem.tag == "PC-InfoData_value_sval") & (event == 'start')):
             if(inchi):
-                compound_data["inchi"] = elem.text
+                if(elem.text):
+                    compound_data["inchi"] = elem.text
                 inchi = False  
             elif(inchikey):
-                compound_data["inchikey"] = elem.text
+                if(elem.text):
+                    compound_data["inchikey"] = elem.text
                 inchikey = False  
             elif(iupac):
-                compound_data['iupac'][iupac_key] = elem.text
+                if(iupac_key):
+                    if(elem.text):
+                        compound_data['iupac'][iupac_key] = elem.text
                 iupac = False
             elif(molecular_formula):
                 compound_data["molecular_formula"] = elem.text
                 molecular_formula = False
             elif(smiles):
-                compound_data['smiles'][smiles_key] = elem.text
+                if(smiles_key):
+                    if(elem.text):
+                        compound_data['smiles'][smiles_key] = elem.text
                 smiles = False
         
         elif((elem.tag == "PC-InfoData_value_ival") & (event == 'start')):
             if(hydrogen_bond_acceptor):
-                compound_data["hydrogen_bond_acceptor_count"] = elem.text
+                if(elem.text):
+                    compound_data["hydrogen_bond_acceptor_count"] = elem.text
                 hydrogen_bond_acceptor = False
             elif(hydrogen_bond_donor):
-                compound_data["hydrogen_bond_donor_count"] = elem.text
+                if(elem.text):
+                    compound_data["hydrogen_bond_donor_count"] = elem.text
                 hydrogen_bond_donor = False
             elif(rotatable_bond):
-                compound_data["rotatable_bond_count"] = elem.text
+                if(elem.text):
+                    compound_data["rotatable_bond_count"] = elem.text
                 rotatable_bond = False
             
         elif((elem.tag == "PC-InfoData_value_fval") & (event == 'start')):
             if(logp):
-                compound_data["xlogp"] = elem.text
+                if(elem.text):
+                    compound_data["xlogp"] = elem.text
                 logp = False
             elif(mass):
-                compound_data["exact_mass"] = elem.text
+                if(elem.text):
+                    compound_data["exact_mass"] = elem.text
                 mass = False
             elif(molecular_weight): 
-                compound_data["molecular_weight"] = elem.text
+                if(elem.text):
+                    compound_data["molecular_weight"] = elem.text
                 molecular_weight = False
             elif(topological):
-                compound_data["topological_polar_surface_area"] = elem.text
+                if(elem.text):
+                    compound_data["topological_polar_surface_area"] = elem.text
                 topological = False
             elif(monoisotopic_weight):
-                compound_data["monoisotopic_weight"] = elem.text
+                if(elem.text):
+                    compound_data["monoisotopic_weight"] = elem.text
                 monoisotopic_weight = False
             elif(complexity):
-                compound_data["complexity"] = elem.text
+                if(elem.text):
+                    compound_data["complexity"] = elem.text
                 complexity = False
