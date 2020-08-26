@@ -1,0 +1,12 @@
+{
+    "version": "0.2",
+    "requires" : ["pandas"],
+    "dumper" : {
+        "data_url" : ["https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/XML/Compound_036500001_037000000.xml.gz"],
+        "uncompress" : true
+    },
+    "uploader" : {
+        "parser" : "parser:load_annotations",
+        "on_duplicates" : "error"
+    }
+}
