@@ -38,7 +38,8 @@ def load_annotations(data_folder):
         elif((elem.tag == "PC-Compound") & (event == 'end')):
             current_compound["pubchem"] = compound_data
             # print(current_compound)
-            yield(current_compound)
+            if(current_compound["_id"]):
+                yield(current_compound)
             elem.clear()
         elif((elem.tag == "PC-Compound_charge") & (event == 'start')):
             compound_data["formal_charge"] = elem.text
